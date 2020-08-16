@@ -1,0 +1,26 @@
+.title{
+    display: flex;
+    font-family: 'Merienda One', cursive;
+    color:  rgb(157, 169, 197);
+    font-size: 45px;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+
+  }
+  .tile{
+    display: flex;
+    height: 80px;
+    width: 80px;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+
+  }
+  .tile0{
+    background-color: rgb(58, 82, 161);
+  }
+  
+  .tile1{
+    background-color: rgb(157, 169, 197);
+  }
