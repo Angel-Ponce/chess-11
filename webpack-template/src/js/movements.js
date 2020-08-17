@@ -15,15 +15,6 @@ export function towerValidationAhead(pos,wayUp,tiles){
       //Si adelante no hay pieza
       if (count == 0) {
         emptyToDot(ahead,wayUp,tiles,towerValidationAhead);
-        // let dot = document.createElement("img");
-        // let pieceDot = new piece('dot', 'dot', ahead);
-        // dot.src = pieceDot.image;
-        // dot.id = "dot";
-        // tiles[ahead].innerElement = pieceDot;
-        // tiles[ahead].removeInnerElement();
-        // tiles[ahead].tile.appendChild(dot);
-        // console.log(tiles[ahead].innerElement);
-        // towerValidationAhead(ahead,wayUp,tiles);
       }
     }
 }
@@ -40,15 +31,6 @@ export function towerValidationBack(pos,wayDown,tiles){
       //Si adelante no hay pieza
       if (count == 0) {
         emptyToDot(back,wayDown,tiles,towerValidationBack);
-        // let dot = document.createElement("img");
-        // let pieceDot = new piece('dot', 'dot', back);
-        // dot.src = pieceDot.image;
-        // dot.id = "dot";
-        // tiles[back].innerElement = pieceDot;
-        // tiles[back].removeInnerElement();
-        // tiles[back].tile.appendChild(dot);
-        // console.log(tiles[back].innerElement);
-        // towerValidationBack(back,wayDown,tiles);
       }
     }
 }
