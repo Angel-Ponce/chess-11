@@ -7,6 +7,7 @@
     export const queenBlack = `./images/pieces/queenBlack.png`;
 
     export const empty = `./images/pieces/empty.png`;
+    export const dot = `./images/pieces/selection.png`;
 
     export const bishopWhite = `./images/pieces/bishopWhite.png`;
     export const horseWhite = `./images/pieces/horseWhite.png`;
