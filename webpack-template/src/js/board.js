@@ -1,6 +1,5 @@
 import { piece } from "./piece";
 import { tile } from "./tile";
-// import * as is from "./onArrays";
 import * as use from "./movements";
 
 export class board {

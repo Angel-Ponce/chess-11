@@ -1,5 +1,6 @@
 //Let's go! the validation movements for each piece!!
 import * as is from "./onArrays";
+import { piece } from "./piece";
 
 export function towerValidationAhead(pos,wayUp,tiles){
     
@@ -15,6 +16,7 @@ export function towerValidationAhead(pos,wayUp,tiles){
         let dot = document.createElement("img");
         let pieceDot = new piece('dot', 'dot', ahead);
         dot.src = pieceDot.image;
+        dot.id = "dot";
         tiles[ahead].innerElement = pieceDot;
         tiles[ahead].tile.appendChild(dot);
         console.log(tiles[ahead].innerElement);
@@ -37,6 +39,7 @@ export function towerValidationBack(pos,wayDown,tiles){
         let dot = document.createElement("img");
         let pieceDot = new piece('dot', 'dot', back);
         dot.src = pieceDot.image;
+        dot.id = "dot";
         tiles[back].innerElement = pieceDot;
         tiles[back].tile.appendChild(dot);
         console.log(tiles[back].innerElement);

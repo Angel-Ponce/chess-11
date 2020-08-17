@@ -18,6 +18,22 @@
     box-sizing: border-box;
     user-select: none;
 
+    img{
+      animation: effect;
+      animation-duration: 0.5s;
+      height: 60%;
+      width: 60%;
+    }
+
+    #dot{
+      height: 100%;
+      width: 100%;
+
+      animation: effectDot;
+      animation-duration: 0.5s;
+
+    }
+
   }
   .tile0{
     background-color: rgb(58, 82, 161);
@@ -25,4 +41,30 @@
   
   .tile1{
     background-color: rgb(157, 169, 197);
+  }
+
+  @keyframes effect{
+    
+    from {
+      width: 0%;
+      height: 0%;
+    }
+    to {
+      width: 60%;
+      height: 60%;
+    }
+
+  }
+
+  @keyframes effectDot{
+    
+    from {
+      width: 0%;
+      height: 0%;
+    }
+    to {
+      width: 100%;
+      height: 100%;
+    }
+
   }
