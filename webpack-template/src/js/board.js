@@ -106,9 +106,9 @@ export class board {
 
   initialPositions() {
     for (let i = 0; i < 64; i++) {
-      let img = document.createElement("img");
-      img.src = this.tiles[i].innerElement.image;
-      this.tiles[i].tile.appendChild(img);
+      let empty = document.createElement("img");
+      empty.src = this.tiles[i].innerElement.image;
+      this.tiles[i].tile.appendChild(empty);
     }
     this.eventClick();
   }
@@ -129,6 +129,7 @@ export class board {
       console.log(piece.name);
       use.towerValidationAhead(piece.pos,this.wayUp,this.tiles);
       use.towerValidationBack(piece.pos,this.wayDown,this.tiles);
+      use.towerValidationRight(piece.pos,this.wayRight,this.tiles);
     }
   }
 

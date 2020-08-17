@@ -6,4 +6,9 @@ export class tile {
     this.tile.classList.add("tile");
     this.innerElement = innerElement;
   }
+
+  removeInnerElement(){
+    this.tile.innerHTML = '';
+  }
+  
 }
