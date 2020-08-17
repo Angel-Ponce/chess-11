@@ -1,7 +1,6 @@
 //Let's go! the validation movements for each piece!!
 import * as is from "./onArrays";
 import { piece } from "./piece";
-import { tile } from "./tile";
 
 export function towerValidationAhead(pos,wayUp,tiles){
     
@@ -43,6 +42,7 @@ export function towerValidationRight(pos,wayRight,tiles){
     let count = 0;
     let right = pos + 1;
     count += seePieces(right,tiles);
+    //Si a la derecha no hay pieza
     console.log(count);
     if(count == 0){
       emptyToDot(right,wayRight,tiles,towerValidationRight)
@@ -51,8 +51,24 @@ export function towerValidationRight(pos,wayRight,tiles){
   }
 }
 
+export function towerValidationLeft(pos,wayLeft,tiles){
+  let wayLeftBool = is.onArray(wayLeft,pos);
+  //Si no esta en la columna izquierda
+  if(wayLeftBool == false){
+    let count = 0;
+    let left = pos-1;
+    count += seePieces(left,tiles);
+    console.log(count);
+    //Si a la izquierda no hay pieza
+    if(count == 0){
+      emptyToDot(left,wayLeft,tiles,towerValidationLeft);
+    }
+
+  }
+}
+
+//External recursive function
 export function emptyToDot(pos,wayArray,tiles,recursiveFunction){
-  console.log("yeah!");
   let dot = document.createElement("img");
   let pieceDot = new piece('dot', 'dot', pos);
   dot.src = pieceDot.image;
