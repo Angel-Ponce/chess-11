@@ -130,60 +130,7 @@ export class board {
       console.log(piece.name);
       use.towerValidationAhead(piece.pos,this.wayUp,this.tiles);
       use.towerValidationBack(piece.pos,this.wayDown,this.tiles);
-      
-      // this.validationAhead(piece.pos);
-      // this.validationBack(piece.pos);
     }
   }
-
-  // validationAhead(pos) {
-  //   let wayUp = is.onArray(this.wayUp, pos);
-  //   //Si no esta en la barra inferior
-  //   if (wayUp == false) {
-  //     let count = 0;
-  //     let ahead = pos + 8;
-  //     count += this.seePieces(ahead);
-  //     console.log(count);
-  //     //Si adelante no hay pieza
-  //     if (count == 0) {
-  //       let dot = document.createElement("img");
-  //       let pieceDot = new piece('dot', 'dot', ahead);
-  //       dot.src = pieceDot.image;
-  //       this.tiles[ahead].innerElement = pieceDot;
-  //       this.tiles[ahead].tile.appendChild(dot);
-  //       console.log(this.tiles[ahead].innerElement);
-  //       this.validationAhead(ahead);
-  //     }
-  //   }
-  // }
-
-  // validationBack(pos){
-  //   let wayDown = is.onArray(this.wayDown, pos);
-  //   //Si no esta en la barra superior
-  //   if (wayDown == false) {
-  //     let count = 0;
-  //     let back = pos - 8;
-  //     count += this.seePieces(back);
-  //     console.log(count);
-  //     //Si atras no hay pieza
-  //     if (count == 0) {
-  //       let dot = document.createElement("img");
-  //       let pieceDot = new piece('dot', 'dot', back);
-  //       dot.src = pieceDot.image;
-  //       this.tiles[back].innerElement = pieceDot;
-  //       this.tiles[back].tile.appendChild(dot);
-  //       console.log(this.tiles[back].innerElement);
-  //       this.validationBack(back);
-  //     }
-  //   }
-  // }
-
-  // seePieces(pos) {
-  //   if (this.tiles[pos].innerElement.name != "empty") {
-  //     return 1;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
 
 }

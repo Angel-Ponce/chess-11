@@ -25,22 +25,22 @@ export function towerValidationAhead(pos,wayUp,tiles){
 
 export function towerValidationBack(pos,wayDown,tiles){
     
-    let wayDownBool = is.onArray(wayUp, pos);
+    let wayDownBool = is.onArray(wayDown, pos);
     //Si no esta en la barra inferior
     if (wayDownBool == false) {
       let count = 0;
       let back = pos - 8;
-      count += seePieces(ahead,tiles);
+      count += seePieces(back,tiles);
       console.log(count);
       //Si adelante no hay pieza
       if (count == 0) {
         let dot = document.createElement("img");
-        let pieceDot = new piece('dot', 'dot', ahead);
+        let pieceDot = new piece('dot', 'dot', back);
         dot.src = pieceDot.image;
-        tiles[ahead].innerElement = pieceDot;
-        tiles[ahead].tile.appendChild(dot);
+        tiles[back].innerElement = pieceDot;
+        tiles[back].tile.appendChild(dot);
         console.log(tiles[back].innerElement);
-        towerValidationAhead(back,wayDown,tiles);
+        towerValidationBack(back,wayDown,tiles);
       }
     }
 }
