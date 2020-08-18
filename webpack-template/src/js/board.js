@@ -7,11 +7,13 @@ export class board {
     this.size = size;
     this.main = document.querySelector(".main");
     this.tiles = [];
-    this.pieceAux = new piece("empty", "empty");
     this.wayDown = [0, 1, 2, 3, 4, 5, 6, 7];
     this.wayUp = [56, 57, 58, 59, 60, 61, 62, 63];
     this.wayLeft = [0, 8, 16, 24, 32, 40, 48, 56];
     this.wayRight = [7, 15, 23, 31, 39, 47, 55, 63];
+    this.click = 0;
+    this.piece1;
+    this.piece2;
   }
 
   createBoard() {
@@ -115,16 +117,19 @@ export class board {
 
   eventClick() {
     for (let i = 0; i < this.tiles.length; i++) {
-      let newPiece = this.tiles[i].innerElement;
       this.tiles[i].tile.addEventListener("click", () => {
-        console.log(`Piece: ${newPiece.name} Team: ${newPiece.team} Position: ${newPiece.pos}`);
-        this.change(newPiece);
+        this.click++;
+        this.change(this.tiles[i]);
+        if(this.click>=2){
+          this.click = 0;
+        }
       });
     }
   }
 
-  change(piece) {
-    this.pieceAux = piece;
+  change(tile) {
+    let piece = tile.innerElement;
+    console.log(`Piece: ${piece.name} Team: ${piece.team} Position: ${piece.pos}`);
     use.removeDots(this.tiles);
     if (piece.name == 'tower') {
       use.towerValidationAhead(piece.pos,this.wayUp,this.tiles);
@@ -136,4 +141,10 @@ export class board {
       use.pawnValidation(piece,this.tiles,this.wayUp,this.wayDown);
     }
   }
+
+  getPosition(tile){
+    let pos = Number(tile.id);
+    return pos;
+  }
+
 }

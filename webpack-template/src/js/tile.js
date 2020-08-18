@@ -22,4 +22,8 @@ export class tile {
     this.tile.appendChild(imgNull);
   }
 
+  changeInnerElement(pos){
+    this.innerElement.pos = pos;
+  }
+
 }

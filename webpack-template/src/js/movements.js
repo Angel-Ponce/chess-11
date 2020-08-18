@@ -9,7 +9,7 @@ export function towerValidationAhead(pos, wayUp, tiles) {
     let count = 0;
     let ahead = pos + 8;
     count += seePieces(ahead, tiles);
-    console.log(count);
+    //console.log(count);
     //Si adelante no hay pieza
     if (count == 0) {
       emptyToDot(ahead, wayUp, tiles, towerValidationAhead,'tower');
@@ -24,7 +24,7 @@ export function towerValidationBack(pos, wayDown, tiles) {
     let count = 0;
     let back = pos - 8;
     count += seePieces(back, tiles);
-    console.log(count);
+    //console.log(count);
     //Si adelante no hay pieza
     if (count == 0) {
       emptyToDot(back, wayDown, tiles, towerValidationBack,'tower');
@@ -40,7 +40,7 @@ export function towerValidationRight(pos, wayRight, tiles) {
     let right = pos + 1;
     count += seePieces(right, tiles);
     //Si a la derecha no hay pieza
-    console.log(count);
+    //console.log(count);
     if (count == 0) {
       emptyToDot(right, wayRight, tiles, towerValidationRight,'tower')
     }
@@ -55,7 +55,7 @@ export function towerValidationLeft(pos, wayLeft, tiles) {
     let count = 0;
     let left = pos - 1;
     count += seePieces(left, tiles);
-    console.log(count);
+    //console.log(count);
     //Si a la izquierda no hay pieza
     if (count == 0) {
       emptyToDot(left, wayLeft, tiles, towerValidationLeft,'tower');
@@ -105,14 +105,16 @@ export function pawnValidation(piece,tiles,wayUp,wayDown){
 
 }
 
+
+
 //External recursive function
 export function emptyToDot(pos, wayArray, tiles, recursiveFunction,pieceName) {
   let dot = document.createElement("img");
   let pieceDot = new piece('dot', 'dot', pos);
   dot.src = pieceDot.image;
   dot.id = "dot";
-  tiles[pos].innerElement = pieceDot;
   tiles[pos].removeInnerElement();
+  tiles[pos].innerElement = pieceDot;
   tiles[pos].tile.appendChild(dot);
   if(pieceName != 'pawn'){
     recursiveFunction(pos, wayArray, tiles);
