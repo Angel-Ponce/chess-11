@@ -141,7 +141,11 @@ export class board {
     } else if (piece.name == "pawn") {
       //This is an algorithm not recursive, because it would convenient work that.
       use.pawnValidation(piece, this.tiles, this.wayUp, this.wayDown);
+    } else if (piece.name == "horse") {
+      //This is an algorithm not recursive, because it would convenient work that.
+      use.horseValidation(piece.pos, this.tiles);
     }
+
     //Validate the movement!
     if (this.click == 1) {
       this.pInicial = tile.innerElement;

@@ -4,12 +4,12 @@ import { piece } from "./piece";
 
 export function towerValidationAhead(pos, wayUp, tiles) {
   let wayUpBool = is.onArray(wayUp, pos);
-  //Si no esta en la barra inferior
+  //If not be at limit row
   if (wayUpBool == false) {
     let count = 0;
     let ahead = pos + 8;
     count += seePieces(ahead, tiles);
-    //Si adelante no hay pieza
+    //If ahead it is free
     if (count == 0) {
       emptyToDot(ahead, wayUp, tiles, towerValidationAhead, "tower");
     }
@@ -18,12 +18,12 @@ export function towerValidationAhead(pos, wayUp, tiles) {
 
 export function towerValidationBack(pos, wayDown, tiles) {
   let wayDownBool = is.onArray(wayDown, pos);
-  //Si no esta en la barra inferior
+  //If not be at limit row
   if (wayDownBool == false) {
     let count = 0;
     let back = pos - 8;
     count += seePieces(back, tiles);
-    //Si adelante no hay pieza
+    //If back it is free
     if (count == 0) {
       emptyToDot(back, wayDown, tiles, towerValidationBack, "tower");
     }
@@ -32,12 +32,12 @@ export function towerValidationBack(pos, wayDown, tiles) {
 
 export function towerValidationRight(pos, wayRight, tiles) {
   let wayRightBool = is.onArray(wayRight, pos);
-  //Si no esta en la columna derecha
+  //If not be at limit column
   if (wayRightBool == false) {
     let count = 0;
     let right = pos + 1;
     count += seePieces(right, tiles);
-    //Si a la derecha no hay pieza
+    //If right it is free
     if (count == 0) {
       emptyToDot(right, wayRight, tiles, towerValidationRight, "tower");
     }
@@ -46,12 +46,12 @@ export function towerValidationRight(pos, wayRight, tiles) {
 
 export function towerValidationLeft(pos, wayLeft, tiles) {
   let wayLeftBool = is.onArray(wayLeft, pos);
-  //Si no esta en la columna izquierda
+  //If not be at limit column
   if (wayLeftBool == false) {
     let count = 0;
     let left = pos - 1;
     count += seePieces(left, tiles);
-    //Si a la izquierda no hay pieza
+    //If left it is free
     if (count == 0) {
       emptyToDot(left, wayLeft, tiles, towerValidationLeft, "tower");
     }
@@ -66,7 +66,7 @@ export function pawnValidation(piece, tiles, wayUp, wayDown) {
   let wayNull = [];
   function funNull() {}
 
-  //Peon negro en su posición inicial
+  //black panw at initial position (2 dots)
   if (wayPawnBlackBool == true && piece.team == "black") {
     let posAhead1 = piece.pos + 8;
     let posAhead2 = piece.pos + 16;
@@ -80,7 +80,7 @@ export function pawnValidation(piece, tiles, wayUp, wayDown) {
     }
   } else if (wayPawnBlackBool == false && piece.team == "black") {
     let wayUpBool = is.onArray(wayUp, piece.pos);
-    //No esta en su límite
+    //If not bee at limit row
     if (wayUpBool == false) {
       let posAhead = piece.pos + 8;
       let ahead3 = seePieces(posAhead, tiles);
@@ -90,7 +90,7 @@ export function pawnValidation(piece, tiles, wayUp, wayDown) {
     }
   }
 
-  //Peon blanco en su posición inicial
+  //Pawn white at initial position (2 dots)
   if (wayPawnWhiteBool == true && piece.team == "white") {
     let posBack1 = piece.pos - 8;
     let posBack2 = piece.pos - 16;
@@ -105,7 +105,7 @@ export function pawnValidation(piece, tiles, wayUp, wayDown) {
     }
   } else if (wayPawnWhiteBool == false && piece.team == "white") {
     let wayDownBool = is.onArray(wayDown, piece.pos);
-    //No esta en su límite
+    //If not bee at limit row
     if (wayDownBool == false) {
       let posBack = piece.pos - 8;
       let back3 = seePieces(posBack, tiles);
@@ -114,6 +114,152 @@ export function pawnValidation(piece, tiles, wayUp, wayDown) {
       }
     }
   }
+}
+
+export function horseValidation(pos,tiles){
+  let funNull = function(){}
+  let wayNull = [];
+  let wayCenter = [18,19,20,21,26,27,28,29,34,35,36,37,42,43,44,45];
+  let wayCenterBool = is.onArray(wayCenter,pos);
+  let waySupRow = [1,2,3,4,5,6];
+  let waySupRowBool = is.onArray(waySupRow,pos);
+  let wayInfRow = [57,58,59,60,61,62];
+  let wayInfRowBool = is.onArray(wayInfRow,pos);
+  let wayLeftColumn = [8,16,24,32,40,48];
+  let wayLeftColumnBool = is.onArray(wayLeftColumn,pos);
+  let wayRightColumn = [15,23,31,39,47,55];
+  let wayRightColumnBool = is.onArray(wayRightColumn,pos);
+  let wayLeftColumn2 = [17,25,33,41];
+  let wayLeftColumn2Bool = is.onArray(wayLeftColumn2,pos);
+  let wayRightColumn2 = [22,30,38,46];
+  let wayRightColumn2Bool = is.onArray(wayRightColumn2,pos);
+  let waySupRow2 = [10,11,12,13];
+  let waySupRow2Bool = is.onArray(waySupRow2,pos);
+  let wayInfRow2 = [50,51,52,53];
+  let wayInfRow2Bool = is.onArray(wayInfRow2,pos);
+  let cornerSup1 = 0;
+  let cornerSup2 = 7;
+  let cornerSup3 = 9;
+  let cornerSup4 = 14;
+  let cornerInf1 = 56;
+  let cornerInf2 = 63;
+  let cornerInf3 = 49;
+  let cornerInf4 = 54;
+
+  //If the horse is at the center (free movements on board)
+  if(wayCenterBool == true){
+    let posis = [pos-17,pos-15,pos-10,pos-6,pos+10,pos+6,pos+17,pos+15];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }
+  //If the horse is at position 0
+  if(cornerSup1 == pos){
+    let posis = [10,17];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+
+  }//If the horse is at position 7
+  else if(cornerSup2 == pos){
+    let posis = [13,22];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+
+  }//If the horse is at position 56
+  else if(cornerInf1 == pos){
+    let posis = [41,50];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+
+  }//If the horse is at position 63
+  else if(cornerInf2 == pos){
+    let posis = [46,53];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }
+  //If the horse is at up row
+  if(waySupRowBool == true){
+    if(pos == 1){
+      let posis = [11,16,18];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else if(pos == 6){
+      let posis = [12,21,23];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else{
+      let posis = [pos+15,pos+17,pos+10,pos+6];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }
+  }//If the horse is at down row
+  if(wayInfRowBool == true){
+    if(pos == 57){
+      let posis = [40,42,51];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else if(pos == 61){
+      let posis = [45,47,52];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else{
+      let posis = [pos-17,pos-15,pos-10,pos-6];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }
+  }
+  //If the horse is at right column
+  if(wayRightColumnBool == true){
+    if(pos == 15){
+      let posis = [5,21,30];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else if(pos == 55){
+      let posis = [38,45,61];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else{
+      let posis =[pos-17,pos-10,pos+6,pos+15];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }
+
+  }//If the horse is at left column
+  if(wayLeftColumnBool == true){
+    if(pos == 8){
+      let posis = [2,18,25];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else if(pos == 48){
+      let posis = [33,42,58];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }else{
+      let posis = [pos-15,pos-6,pos+10,pos+17];
+      emptyToDotForHorses(posis,wayNull,tiles,funNull);
+    }
+  }
+  //If the horse is at position 9
+  if(cornerSup3 == pos){
+    let posis = [3,19,24,26];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }//If the horse is at position 14
+  else if(cornerSup4 == pos){
+    let posis = [4,20,29,31];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }
+  //If the horse is at position 49
+  if(cornerInf3 == pos){
+    let posis = [32,34,43,59];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }//If the horse is at position 54
+  else if(cornerInf4 == pos){
+    let posis = [37,39,44,60];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }
+  //If the horse is at second column left
+  if(wayLeftColumn2Bool == true){
+    let posis = [pos-17,pos-15,pos-6,pos+10,pos+17,pos+15];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+
+  }//If the horse is at second column right
+  else if(wayRightColumn2Bool == true){
+    let posis = [pos-17,pos-15,pos-10,pos+6,pos+15,pos+17];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }//If the horse is at second row sup
+  else if(waySupRow2Bool == true){
+    let posis = [pos-10,pos-6,pos+6,pos+10,pos+17,pos+15];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+
+  }//If the horse is at second row inf
+  else if(wayInfRow2Bool == true){
+    let posis = [pos+6,pos+10,pos-10,pos-6,pos-17,pos-15];
+    emptyToDotForHorses(posis,wayNull,tiles,funNull);
+  }
+
 }
 
 //External recursive function
@@ -130,6 +276,15 @@ export function emptyToDot(pos, wayArray, tiles, recursiveFunction, pieceName) {
   }
 }
 
+export function emptyToDotForHorses(posis,wayNull,tiles,funNull){
+  for(let it of posis){
+    let num = seePieces(it,tiles);
+    if(num == 0){
+      emptyToDot(it,wayNull,tiles,funNull,'pawn');
+    }
+  }
+}
+
 export function removeDots(tiles) {
   for (let it of tiles) {
     if (it.innerElement.name == "dot") {
@@ -137,7 +292,7 @@ export function removeDots(tiles) {
     }
   }
 }
-
+//View if in some position there a piece or not.
 export function seePieces(pos, tiles) {
   if (tiles[pos].innerElement.name != "empty") {
     return 1;
