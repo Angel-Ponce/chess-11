@@ -12,8 +12,9 @@ export class board {
     this.wayLeft = [0, 8, 16, 24, 32, 40, 48, 56];
     this.wayRight = [7, 15, 23, 31, 39, 47, 55, 63];
     this.click = 0;
-    this.piece1;
-    this.piece2;
+    this.myCounter = 0;
+    this.pInicial;
+    this.pFinal;
   }
 
   createBoard() {
@@ -120,7 +121,7 @@ export class board {
       this.tiles[i].tile.addEventListener("click", () => {
         this.click++;
         this.change(this.tiles[i]);
-        if(this.click>=2){
+        if (this.click >= 2) {
           this.click = 0;
         }
       });
@@ -128,23 +129,47 @@ export class board {
   }
 
   change(tile) {
+    if(tile.innerElement.name == 'emtpy'){
+      this.click--;
+    }
     let piece = tile.innerElement;
-    console.log(`Piece: ${piece.name} Team: ${piece.team} Position: ${piece.pos}`);
-    use.removeDots(this.tiles);
-    if (piece.name == 'tower') {
-      use.towerValidationAhead(piece.pos,this.wayUp,this.tiles);
-      use.towerValidationBack(piece.pos,this.wayDown,this.tiles);
-      use.towerValidationRight(piece.pos,this.wayRight,this.tiles);
-      use.towerValidationLeft(piece.pos,this.wayLeft,this.tiles);
-    }else if(piece.name == 'pawn'){
+    console.log(
+      `Piece: ${piece.name} Team: ${piece.team} Position: ${piece.pos}`
+    );
+    if (piece.name == "tower") {
+      use.towerValidationAhead(piece.pos, this.wayUp, this.tiles);
+      use.towerValidationBack(piece.pos, this.wayDown, this.tiles);
+      use.towerValidationRight(piece.pos, this.wayRight, this.tiles);
+      use.towerValidationLeft(piece.pos, this.wayLeft, this.tiles);
+    } else if (piece.name == "pawn") {
       //This is only algorithm not recursive, because it would convenient work that.
-      use.pawnValidation(piece,this.tiles,this.wayUp,this.wayDown);
+      use.pawnValidation(piece, this.tiles, this.wayUp, this.wayDown);
+    }
+    //Validar el movimiento!
+    if (this.click == 1) {
+      this.pInicial = tile.innerElement;
+    } else if (this.click == 2) {
+      this.pFinal = tile.innerElement;
+      //Es un movimiento valido
+      if (this.pFinal.name == "dot") {
+        console.log("Este es un movimiento válido");
+        use.removeDots(this.tiles);
+        this.move(this.pInicial, this.pFinal);
+      }else{ //No es un movimiento valido
+        use.removeDots(this.tiles);
+      } 
     }
   }
 
-  getPosition(tile){
-    let pos = Number(tile.id);
-    return pos;
+  move(pInicial, pFinal) {
+    let img = document.createElement("img");
+    img.src = pInicial.image;
+    console.log(`posInicial : ${pInicial.pos} y posFinal: ${pFinal.pos}`);
+    this.tiles[pFinal.pos].removeInnerElement();
+    this.tiles[pInicial.pos].toEmpty();
+    this.tiles[pFinal.pos].innerElement = pInicial;
+    this.tiles[pFinal.pos].innerElement.pos = pFinal.pos;
+    this.tiles[pFinal.pos].tile.appendChild(img);
+    
   }
-
 }
