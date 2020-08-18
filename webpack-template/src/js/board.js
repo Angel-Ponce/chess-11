@@ -12,8 +12,6 @@ export class board {
     this.wayUp = [56, 57, 58, 59, 60, 61, 62, 63];
     this.wayLeft = [0, 8, 16, 24, 32, 40, 48, 56];
     this.wayRight = [7, 15, 23, 31, 39, 47, 55, 63];
-    this.wayPawnBlack = [8,9,10,11,12,13,14,15];
-    this.wayPawnWhite = [48,49,50,51,52,53,54,55]; 
   }
 
   createBoard() {
@@ -119,7 +117,7 @@ export class board {
     for (let i = 0; i < this.tiles.length; i++) {
       let newPiece = this.tiles[i].innerElement;
       this.tiles[i].tile.addEventListener("click", () => {
-        console.log(`Piece: ${newPiece.name} Team: ${newPiece.team}`);
+        console.log(`Piece: ${newPiece.name} Team: ${newPiece.team} Position: ${newPiece.pos}`);
         this.change(newPiece);
       });
     }
@@ -127,15 +125,15 @@ export class board {
 
   change(piece) {
     this.pieceAux = piece;
-
+    use.removeDots(this.tiles);
     if (piece.name == 'tower') {
       use.towerValidationAhead(piece.pos,this.wayUp,this.tiles);
       use.towerValidationBack(piece.pos,this.wayDown,this.tiles);
       use.towerValidationRight(piece.pos,this.wayRight,this.tiles);
       use.towerValidationLeft(piece.pos,this.wayLeft,this.tiles);
     }else if(piece.name == 'pawn'){
-      
+      //This is only algorithm not recursive, because it would convenient work that.
+      use.pawnValidation(piece,this.tiles,this.wayUp,this.wayDown);
     }
   }
-
 }
