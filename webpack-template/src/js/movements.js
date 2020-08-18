@@ -75,7 +75,7 @@ export function pawnValidation(piece, tiles, wayUp, wayDown) {
     if (ahead == 0) {
       emptyToDot(posAhead1, wayNull, tiles, funNull, "pawn");
     }
-    if (ahead2 == 0) {
+    if (ahead2 == 0 && ahead == 0) {
       emptyToDot(posAhead2, wayNull, tiles, funNull, "pawn");
     }
   } else if (wayPawnBlackBool == false && piece.team == "black") {
@@ -100,7 +100,7 @@ export function pawnValidation(piece, tiles, wayUp, wayDown) {
     if (back1 == 0) {
       emptyToDot(posBack1, wayNull, tiles, funNull, "pawn");
     }
-    if (back2 == 0) {
+    if (back2 == 0 && back1 == 0) {
       emptyToDot(posBack2, wayNull, tiles, funNull, "pawn");
     }
   } else if (wayPawnWhiteBool == false && piece.team == "white") {
