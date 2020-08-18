@@ -129,9 +129,6 @@ export class board {
   }
 
   change(tile) {
-    if(tile.innerElement.name == 'emtpy'){
-      this.click--;
-    }
     let piece = tile.innerElement;
     console.log(
       `Piece: ${piece.name} Team: ${piece.team} Position: ${piece.pos}`
@@ -142,7 +139,7 @@ export class board {
       use.towerValidationRight(piece.pos, this.wayRight, this.tiles);
       use.towerValidationLeft(piece.pos, this.wayLeft, this.tiles);
     } else if (piece.name == "pawn") {
-      //This is only algorithm not recursive, because it would convenient work that.
+      //This is an algorithm not recursive, because it would convenient work that.
       use.pawnValidation(piece, this.tiles, this.wayUp, this.wayDown);
     }
     //Validar el movimiento!
@@ -152,7 +149,6 @@ export class board {
       this.pFinal = tile.innerElement;
       //Es un movimiento valido
       if (this.pFinal.name == "dot") {
-        console.log("Este es un movimiento válido");
         use.removeDots(this.tiles);
         this.move(this.pInicial, this.pFinal);
       }else{ //No es un movimiento valido
