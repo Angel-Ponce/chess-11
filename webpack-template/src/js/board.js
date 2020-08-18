@@ -142,18 +142,19 @@ export class board {
       //This is an algorithm not recursive, because it would convenient work that.
       use.pawnValidation(piece, this.tiles, this.wayUp, this.wayDown);
     }
-    //Validar el movimiento!
+    //Validate the movement!
     if (this.click == 1) {
       this.pInicial = tile.innerElement;
     } else if (this.click == 2) {
       this.pFinal = tile.innerElement;
-      //Es un movimiento valido
+      //It's a valid movement
       if (this.pFinal.name == "dot") {
         use.removeDots(this.tiles);
         this.move(this.pInicial, this.pFinal);
-      }else{ //No es un movimiento valido
+      } else {
+        //It'snt a valid movement
         use.removeDots(this.tiles);
-      } 
+      }
     }
   }
 
@@ -166,6 +167,5 @@ export class board {
     this.tiles[pFinal.pos].innerElement = pInicial;
     this.tiles[pFinal.pos].innerElement.pos = pFinal.pos;
     this.tiles[pFinal.pos].tile.appendChild(img);
-    
   }
 }
