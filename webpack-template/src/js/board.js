@@ -130,9 +130,7 @@ export class board {
 
   change(tile) {
     let piece = tile.innerElement;
-    console.log(
-      `Piece: ${piece.name} Team: ${piece.team} Position: ${piece.pos}`
-    );
+    console.log(tile.innerElement);
     if (piece.name == "tower") {
       use.towerValidationAhead(piece.pos, this.wayUp, this.tiles);
       use.towerValidationBack(piece.pos, this.wayDown, this.tiles);
