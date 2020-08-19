@@ -316,7 +316,7 @@ export function emptyToDot(pos, wayArray, tiles, recursiveFunction, pieceName) {
   tiles[pos].removeInnerElement();
   tiles[pos].innerElement = pieceDot;
   tiles[pos].tile.appendChild(dot);
-  if (pieceName != "pawn") {
+  if (pieceName != "pawn" && pieceName != "king") {
     recursiveFunction(pos, wayArray, tiles);
   }
 }
@@ -371,7 +371,7 @@ export function kingValidationAhead(pos, wayUp, tiles) {
     count += seePieces(ahead, tiles);
     //If ahead it is free
     if (count == 0) {
-      emptyToDot(ahead, wayUp, tiles, funNull, "tower");
+      emptyToDot(ahead, wayUp, tiles, funNull, "king");
     }
   }
 }
