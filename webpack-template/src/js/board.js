@@ -144,6 +144,30 @@ export class board {
     } else if (piece.name == "horse") {
       //This is an algorithm not recursive, because it would convenient work that.
       use.horseValidation(piece.pos, this.tiles);
+    } else if(piece.name == "bishop"){
+      use.bishopValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles);
+      use.bishopValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles);
+      use.bishopValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles);
+      use.bishopValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles);
+    } else if(piece.name == "queen"){
+      //The queen use the same movements at tower and bishop
+      use.towerValidationAhead(piece.pos, this.wayUp, this.tiles);
+      use.towerValidationBack(piece.pos, this.wayDown, this.tiles);
+      use.towerValidationRight(piece.pos, this.wayRight, this.tiles);
+      use.towerValidationLeft(piece.pos, this.wayLeft, this.tiles);
+      use.bishopValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles);
+      use.bishopValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles);
+      use.bishopValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles);
+      use.bishopValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles);
+    } else if(piece.name == "king"){
+      use.kingValidationAhead(piece.pos,this.wayUp,this.tiles);
+      use.kingValidationBack(piece.pos,this.wayDown,this.tiles);
+      use.kingValidationRight(piece.pos,this.wayRight,this.tiles);
+      use.kingValidationLeft(piece.pos,this.wayLeft,this.tiles);
+      use.kingValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles);
+      use.kingValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles);
+      use.kingValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles);
+      use.kingValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles);
     }
 
     //Validate the movement!

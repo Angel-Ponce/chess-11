@@ -262,6 +262,51 @@ export function horseValidation(pos,tiles){
 
 }
 
+export function bishopValidationUL(pos, wayDown, wayLeft, tiles) {
+  let wayDownBool = is.onArray(wayDown, pos);
+  let wayLeftBool = is.onArray(wayLeft,pos);
+  if (wayDownBool == false && wayLeftBool == false) {
+    let corner = pos - 9;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayDown,wayLeft,tiles,bishopValidationUL,'bishop');
+    }
+  }
+}
+export function bishopValidationUR(pos, wayDown, wayRight, tiles) {
+  let wayDownBool = is.onArray(wayDown, pos);
+  let wayRightBool = is.onArray(wayRight,pos);
+  if (wayDownBool == false && wayRightBool == false) {
+    let corner = pos - 7;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayDown,wayRight,tiles,bishopValidationUR,'bishop');
+    }
+  }
+}
+export function bishopValidationDL(pos, wayUp, wayLeft, tiles) {
+  let wayUpBool = is.onArray(wayUp, pos);
+  let wayLeftBool = is.onArray(wayLeft,pos);
+  if (wayUpBool == false && wayLeftBool == false) {
+    let corner = pos + 7;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayUp,wayLeft,tiles,bishopValidationDL,'bishop');
+    }
+  }
+}
+export function bishopValidationDR(pos, wayUp, wayRight, tiles) {
+  let wayUpBool = is.onArray(wayUp, pos);
+  let wayRightBool = is.onArray(wayRight,pos);
+  if (wayUpBool == false && wayRightBool == false) {
+    let corner = pos + 9;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayUp,wayRight,tiles,bishopValidationDR,'bishop');
+    }
+  }
+}
+
 //External recursive function
 export function emptyToDot(pos, wayArray, tiles, recursiveFunction, pieceName) {
   let dot = document.createElement("img");
@@ -273,6 +318,18 @@ export function emptyToDot(pos, wayArray, tiles, recursiveFunction, pieceName) {
   tiles[pos].tile.appendChild(dot);
   if (pieceName != "pawn") {
     recursiveFunction(pos, wayArray, tiles);
+  }
+}
+export function emptyToDotForBishops(pos, wayArray, wayArray2, tiles, recursiveFunction, pieceName) {
+  let dot = document.createElement("img");
+  let pieceDot = new piece("dot", "dot", pos);
+  dot.src = pieceDot.image;
+  dot.id = "dot";
+  tiles[pos].removeInnerElement();
+  tiles[pos].innerElement = pieceDot;
+  tiles[pos].tile.appendChild(dot);
+  if (pieceName != "pawn") {
+    recursiveFunction(pos, wayArray, wayArray2, tiles);
   }
 }
 
@@ -298,5 +355,117 @@ export function seePieces(pos, tiles) {
     return 1;
   } else {
     return 0;
+  }
+}
+
+
+//The king use the same movements that the queen but, it would be not recursive.
+//Validation of towers
+export function kingValidationAhead(pos, wayUp, tiles) {
+  let funNull = function(){}
+  let wayUpBool = is.onArray(wayUp, pos);
+  //If not be at limit row
+  if (wayUpBool == false) {
+    let count = 0;
+    let ahead = pos + 8;
+    count += seePieces(ahead, tiles);
+    //If ahead it is free
+    if (count == 0) {
+      emptyToDot(ahead, wayUp, tiles, funNull, "tower");
+    }
+  }
+}
+
+export function kingValidationBack(pos, wayDown, tiles) {
+  let funNull = function(){}
+  let wayDownBool = is.onArray(wayDown, pos);
+  //If not be at limit row
+  if (wayDownBool == false) {
+    let count = 0;
+    let back = pos - 8;
+    count += seePieces(back, tiles);
+    //If back it is free
+    if (count == 0) {
+      emptyToDot(back, wayDown, tiles, funNull, "king");
+    }
+  }
+}
+
+export function kingValidationRight(pos, wayRight, tiles) {
+  let funNull = function(){}
+  let wayRightBool = is.onArray(wayRight, pos);
+  //If not be at limit column
+  if (wayRightBool == false) {
+    let count = 0;
+    let right = pos + 1;
+    count += seePieces(right, tiles);
+    //If right it is free
+    if (count == 0) {
+      emptyToDot(right, wayRight, tiles, funNull, "king");
+    }
+  }
+}
+
+export function kingValidationLeft(pos, wayLeft, tiles) {
+  let funNull = function(){}
+  let wayLeftBool = is.onArray(wayLeft, pos);
+  //If not be at limit column
+  if (wayLeftBool == false) {
+    let count = 0;
+    let left = pos - 1;
+    count += seePieces(left, tiles);
+    //If left it is free
+    if (count == 0) {
+      emptyToDot(left, wayLeft, tiles, funNull, "king");
+    }
+  }
+}
+//Validation of bishop
+export function kingValidationUL(pos, wayDown, wayLeft, tiles) {
+  let funNull = function (){}
+  let wayDownBool = is.onArray(wayDown, pos);
+  let wayLeftBool = is.onArray(wayLeft,pos);
+  if (wayDownBool == false && wayLeftBool == false) {
+    let corner = pos - 9;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayDown,wayLeft,tiles,funNull,'king');
+    }
+  }
+}
+export function kingValidationUR(pos, wayDown, wayRight, tiles) {
+  let funNull = function (){}
+  let wayDownBool = is.onArray(wayDown, pos);
+  let wayRightBool = is.onArray(wayRight,pos);
+  if (wayDownBool == false && wayRightBool == false) {
+    let corner = pos - 7;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayDown,wayRight,tiles,funNull,'king');
+    }
+  }
+}
+export function kingValidationDL(pos, wayUp, wayLeft, tiles) {
+  let funNull = function (){}
+  let wayUpBool = is.onArray(wayUp, pos);
+  let wayLeftBool = is.onArray(wayLeft,pos);
+  if (wayUpBool == false && wayLeftBool == false) {
+    let corner = pos + 7;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayUp,wayLeft,tiles,funNull,'king');
+    }
+  }
+}
+export function kingValidationDR(pos, wayUp, wayRight, tiles) {
+  let funNull = function (){}
+  let wayUpBool = is.onArray(wayUp, pos);
+  let wayRightBool = is.onArray(wayRight,pos);
+  if (wayUpBool == false && wayRightBool == false) {
+    let corner = pos + 9;
+    let count1 = seePieces(corner, tiles);
+    if (count1 == 0) {
+      emptyToDotForBishops(corner,wayUp,wayRight,tiles,funNull,'king');
+    }
   }
 }
