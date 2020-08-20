@@ -119,7 +119,7 @@ export class board {
   eventClick() {
     for (let i = 0; i < this.tiles.length; i++) {
       this.tiles[i].tile.addEventListener("click", () => {
-        this.click++;
+          this.click++;
         this.change(this.tiles[i]);
         if (this.click >= 2) {
           this.click = 0;
@@ -132,40 +132,40 @@ export class board {
     let piece = tile.innerElement;
     console.log(tile.innerElement);
     if (piece.name == "tower") {
-      use.towerValidationAhead(piece.pos, this.wayUp, this.tiles);
-      use.towerValidationBack(piece.pos, this.wayDown, this.tiles);
-      use.towerValidationRight(piece.pos, this.wayRight, this.tiles);
-      use.towerValidationLeft(piece.pos, this.wayLeft, this.tiles);
+      use.towerValidationAhead(piece.pos, this.wayUp, this.tiles,piece.pos);
+      use.towerValidationBack(piece.pos, this.wayDown, this.tiles,piece.pos);
+      use.towerValidationRight(piece.pos, this.wayRight, this.tiles,piece.pos);
+      use.towerValidationLeft(piece.pos, this.wayLeft, this.tiles,piece.pos);
     } else if (piece.name == "pawn") {
       //This is an algorithm not recursive, because it would convenient work that.
-      use.pawnValidation(piece, this.tiles, this.wayUp, this.wayDown);
+      use.pawnValidation(piece, this.tiles, this.wayUp, this.wayDown,this.wayLeft,this.wayRight,piece.pos);
     } else if (piece.name == "horse") {
       //This is an algorithm not recursive, because it would convenient work that.
-      use.horseValidation(piece.pos, this.tiles);
+      use.horseValidation(piece.pos, this.tiles,piece.pos);
     } else if(piece.name == "bishop"){
-      use.bishopValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles);
-      use.bishopValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles);
-      use.bishopValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles);
-      use.bishopValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles);
+      use.bishopValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles,piece.pos);
+      use.bishopValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles,piece.pos);
+      use.bishopValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles,piece.pos);
+      use.bishopValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles,piece.pos);
     } else if(piece.name == "queen"){
       //The queen use the same movements at tower and bishop
-      use.towerValidationAhead(piece.pos, this.wayUp, this.tiles);
-      use.towerValidationBack(piece.pos, this.wayDown, this.tiles);
-      use.towerValidationRight(piece.pos, this.wayRight, this.tiles);
-      use.towerValidationLeft(piece.pos, this.wayLeft, this.tiles);
-      use.bishopValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles);
-      use.bishopValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles);
-      use.bishopValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles);
-      use.bishopValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles);
+      use.towerValidationAhead(piece.pos, this.wayUp, this.tiles,piece.pos);
+      use.towerValidationBack(piece.pos, this.wayDown, this.tiles,piece.pos);
+      use.towerValidationRight(piece.pos, this.wayRight, this.tiles,piece.pos);
+      use.towerValidationLeft(piece.pos, this.wayLeft, this.tiles,piece.pos);
+      use.bishopValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles,piece.pos);
+      use.bishopValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles,piece.pos);
+      use.bishopValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles,piece.pos);
+      use.bishopValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles,piece.pos);
     } else if(piece.name == "king"){
-      use.kingValidationAhead(piece.pos,this.wayUp,this.tiles);
-      use.kingValidationBack(piece.pos,this.wayDown,this.tiles);
-      use.kingValidationRight(piece.pos,this.wayRight,this.tiles);
-      use.kingValidationLeft(piece.pos,this.wayLeft,this.tiles);
-      use.kingValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles);
-      use.kingValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles);
-      use.kingValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles);
-      use.kingValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles);
+      use.kingValidationAhead(piece.pos,this.wayUp,this.tiles,piece.pos);
+      use.kingValidationBack(piece.pos,this.wayDown,this.tiles,piece.pos);
+      use.kingValidationRight(piece.pos,this.wayRight,this.tiles,piece.pos);
+      use.kingValidationLeft(piece.pos,this.wayLeft,this.tiles,piece.pos);
+      use.kingValidationUL(piece.pos,this.wayDown,this.wayLeft,this.tiles,piece.pos);
+      use.kingValidationUR(piece.pos,this.wayDown,this.wayRight,this.tiles,piece.pos);
+      use.kingValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles,piece.pos);
+      use.kingValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles,piece.pos);
     }
 
     //Validate the movement!
@@ -177,8 +177,14 @@ export class board {
       if (this.pFinal.name == "dot") {
         use.removeDots(this.tiles);
         this.move(this.pInicial, this.pFinal);
+        use.removeVuls(this.tiles);
+      }else if(this.pFinal.vulnerate == true){
+        console.log("comida");
+        use.removeDots(this.tiles);
+        use.removeVuls(this.tiles);
       } else {
         //It'snt a valid movement
+        use.removeVuls(this.tiles);
         use.removeDots(this.tiles);
       }
     }

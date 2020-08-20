@@ -7,7 +7,7 @@ export class piece {
     this.team = team;
     this.image = topic.empty;
     this.pos = pos;
-
+    this.vulnerate = false;
     this.chooseImage();
   }
   chooseImage() {
