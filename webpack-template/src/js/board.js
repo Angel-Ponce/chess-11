@@ -179,8 +179,8 @@ export class board {
         this.move(this.pInicial, this.pFinal);
         use.removeVuls(this.tiles);
       }else if(this.pFinal.vulnerate == true){
-        console.log("comida");
         use.removeDots(this.tiles);
+        console.log("comida");
         use.removeVuls(this.tiles);
       } else {
         //It'snt a valid movement

@@ -96,6 +96,8 @@ export function pawnValidation(piece,tiles,wayUp,wayDown,wayLeft,wayRight,static
   let wayPawnWhiteBool = is.onArray(wayPawnWhite, piece.pos);
   let wayLeftBool = is.onArray(wayLeft, piece.pos);
   let wayRightBool = is.onArray(wayRight, piece.pos);
+  let wayUpBool = is.onArray(wayUp,piece.pos);
+  let wayDownBool = is.onArray(wayDown,piece.pos);
   let wayNull = [];
   function funNull() {}
 
@@ -120,57 +122,60 @@ export function pawnValidation(piece,tiles,wayUp,wayDown,wayLeft,wayRight,static
       if (ahead3 == 0) {
         emptyToDot(posAhead, wayNull, tiles, funNull, "pawn");
       }
-      //View for food blacks
-      if (wayLeftBool == true && piece.team == "black") {
-        let corner = piece.pos + 9;
-        let count = seePieces(corner, tiles);
-        if (count == 1) {
-          if (
-            tiles[corner].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner].tile.classList.add("vul");
-            tiles[corner].innerElement.vulnerate = true;
-          }
+    }
+  }
+
+  if(wayUpBool == false){
+    //View for food blacks
+    if (wayLeftBool == true && piece.team == "black") {
+      let corner = piece.pos + 9;
+      let count = seePieces(corner, tiles);
+      if (count == 1) {
+        if (
+          tiles[corner].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner].tile.classList.add("vul");
+          tiles[corner].innerElement.vulnerate = true;
         }
-      } else if (wayRightBool == true && piece.team == "black") {
-        let corner = piece.pos + 7;
-        let count = seePieces(corner, tiles);
-        if (count == 1) {
-          if (
-            tiles[corner].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner].tile.classList.add("vul");
-            tiles[corner].innerElement.vulnerate = true;
-          }
+      }
+    } else if (wayRightBool == true && piece.team == "black") {
+      let corner = piece.pos + 7;
+      let count = seePieces(corner, tiles);
+      if (count == 1) {
+        if (
+          tiles[corner].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner].tile.classList.add("vul");
+          tiles[corner].innerElement.vulnerate = true;
         }
-      } else if (
-        wayRightBool == false &&
-        wayLeftBool == false &&
-        piece.team == "black"
-      ) {
-        let corner1 = piece.pos + 9;
-        let corner2 = piece.pos + 7;
-        let count1 = seePieces(corner1, tiles);
-        let count2 = seePieces(corner2, tiles);
-        if (count1 == 1) {
-          if (
-            tiles[corner1].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner1].tile.classList.add("vul");
-            tiles[corner1].innerElement.vulnerate = true;
-          }
+      }
+    } else if (
+      wayRightBool == false &&
+      wayLeftBool == false &&
+      piece.team == "black"
+    ) {
+      let corner1 = piece.pos + 9;
+      let corner2 = piece.pos + 7;
+      let count1 = seePieces(corner1, tiles);
+      let count2 = seePieces(corner2, tiles);
+      if (count1 == 1) {
+        if (
+          tiles[corner1].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner1].tile.classList.add("vul");
+          tiles[corner1].innerElement.vulnerate = true;
         }
-        if (count2 == 1) {
-          if (
-            tiles[corner2].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner2].tile.classList.add("vul");
-            tiles[corner2].innerElement.vulnerate = true;
-          }
+      }
+      if (count2 == 1) {
+        if (
+          tiles[corner2].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner2].tile.classList.add("vul");
+          tiles[corner2].innerElement.vulnerate = true;
         }
       }
     }
@@ -198,61 +203,64 @@ export function pawnValidation(piece,tiles,wayUp,wayDown,wayLeft,wayRight,static
       if (back3 == 0) {
         emptyToDot(posBack, wayNull, tiles, funNull, "pawn");
       }
-      //View for food whites
-      if (wayLeftBool == true && piece.team == "white") {
-        let corner = piece.pos - 7;
-        let count = seePieces(corner, tiles);
-        if (count == 1) {
-          if (
-            tiles[corner].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner].tile.classList.add("vul");
-            tiles[corner].innerElement.vulnerate = true;
-          }
+    }
+  }
+  if(wayDownBool == false){
+    //View for food whites
+    if (wayLeftBool == true && piece.team == "white") {
+      let corner = piece.pos - 7;
+      let count = seePieces(corner, tiles);
+      if (count == 1) {
+        if (
+          tiles[corner].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner].tile.classList.add("vul");
+          tiles[corner].innerElement.vulnerate = true;
         }
-      } else if (wayRightBool == true && piece.team == "white") {
-        let corner = piece.pos - 9;
-        let count = seePieces(corner, tiles);
-        if (count == 1) {
-          if (
-            tiles[corner].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner].tile.classList.add("vul");
-            tiles[corner].innerElement.vulnerate = true;
-          }
+      }
+    } else if (wayRightBool == true && piece.team == "white") {
+      let corner = piece.pos - 9;
+      let count = seePieces(corner, tiles);
+      if (count == 1) {
+        if (
+          tiles[corner].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner].tile.classList.add("vul");
+          tiles[corner].innerElement.vulnerate = true;
         }
-      } else if (
-        wayRightBool == false &&
-        wayLeftBool == false &&
-        piece.team == "white"
-      ) {
-        let corner1 = piece.pos - 7;
-        let corner2 = piece.pos - 9;
-        let count1 = seePieces(corner1, tiles);
-        let count2 = seePieces(corner2, tiles);
-        if (count1 == 1) {
-          if (
-            tiles[corner1].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner1].tile.classList.add("vul");
-            tiles[corner1].innerElement.vulnerate = true;
-          }
+      }
+    } else if (
+      wayRightBool == false &&
+      wayLeftBool == false &&
+      piece.team == "white"
+    ) {
+      let corner1 = piece.pos - 7;
+      let corner2 = piece.pos - 9;
+      let count1 = seePieces(corner1, tiles);
+      let count2 = seePieces(corner2, tiles);
+      if (count1 == 1) {
+        if (
+          tiles[corner1].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner1].tile.classList.add("vul");
+          tiles[corner1].innerElement.vulnerate = true;
         }
-        if (count2 == 1) {
-          if (
-            tiles[corner2].innerElement.team !=
-            tiles[staticPos].innerElement.team
-          ) {
-            tiles[corner2].tile.classList.add("vul");
-            tiles[corner2].innerElement.vulnerate = true;
-          }
+      }
+      if (count2 == 1) {
+        if (
+          tiles[corner2].innerElement.team !=
+          tiles[staticPos].innerElement.team
+        ) {
+          tiles[corner2].tile.classList.add("vul");
+          tiles[corner2].innerElement.vulnerate = true;
         }
       }
     }
   }
+
 }
 
 export function horseValidation(pos, tiles, staticPos) {
