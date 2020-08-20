@@ -119,7 +119,7 @@ export class board {
   eventClick() {
     for (let i = 0; i < this.tiles.length; i++) {
       this.tiles[i].tile.addEventListener("click", () => {
-          this.click++;
+        this.click++;
         this.change(this.tiles[i]);
         if (this.click >= 2) {
           this.click = 0;
@@ -130,6 +130,12 @@ export class board {
 
   change(tile) {
     let piece = tile.innerElement;
+    //In prove
+    if(piece.team == "empty"){
+      this.click = 2;
+    }
+    //In prove
+
     console.log(tile.innerElement);
     if (piece.name == "tower") {
       use.towerValidationAhead(piece.pos, this.wayUp, this.tiles,piece.pos);
@@ -178,14 +184,17 @@ export class board {
         use.removeDots(this.tiles);
         this.move(this.pInicial, this.pFinal);
         use.removeVuls(this.tiles);
+        use.removePiecesVulnerates(this.tiles);
       }else if(this.pFinal.vulnerate == true){
         use.removeDots(this.tiles);
-        console.log("comida");
+        this.move(this.pInicial,this.pFinal);
         use.removeVuls(this.tiles);
+        use.removePiecesVulnerates(this.tiles);
       } else {
         //It'snt a valid movement
         use.removeVuls(this.tiles);
         use.removeDots(this.tiles);
+        use.removePiecesVulnerates(this.tiles);
       }
     }
   }

@@ -529,6 +529,12 @@ export function removeVuls(tiles){
   }
 }
 
+export function removePiecesVulnerates(tiles){
+  for(let it of tiles){
+    it.innerElement.vulnerate = false;
+  }
+}
+
 //The king use the same movements that the queen but, it would be not recursive.
 //Validation of towers
 export function kingValidationAhead(pos, wayUp, tiles, staticPos) {
