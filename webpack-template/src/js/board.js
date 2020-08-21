@@ -6,7 +6,11 @@ export class board {
   constructor(size) {
     this.size = size;
     this.main = document.querySelector(".main");
+    this.deathBlack = document.querySelector("#blacks");
+    this.deathWhite = document.querySelector("#whites");
     this.tiles = [];
+    this.tilesDB = [];
+    this.tilesDW = [];
     this.wayDown = [0, 1, 2, 3, 4, 5, 6, 7];
     this.wayUp = [56, 57, 58, 59, 60, 61, 62, 63];
     this.wayLeft = [0, 8, 16, 24, 32, 40, 48, 56];
@@ -15,6 +19,34 @@ export class board {
     this.myCounter = 0;
     this.pInicial;
     this.pFinal;
+  }
+
+  createSpaceOfDeahts(tilesName,deathName){
+    let altern = true;
+    for(let i=1; i<=16; i++){
+      let pieceN = new piece("empty","empty", i-1);
+      let tileObj = new tile(i-1,pieceN);
+      let empty = document.createElement("img");
+      empty.src = pieceN.image;
+      tileObj.tile.appendChild(empty);
+      if(altern){
+        tileObj.tile.classList.add("death0");
+        altern = false;
+      }else{
+        tileObj.tile.classList.add("death1");
+        altern = true;
+      }
+
+      if(i%2 == 0){
+        if(altern){
+          altern = false;
+        }else{
+          altern = true;
+        }
+      }
+    tilesName.push(tileObj);
+    deathName.appendChild(tileObj.tile);
+    }
   }
 
   createBoard() {
@@ -41,6 +73,8 @@ export class board {
       this.main.appendChild(tileObj.tile);
     }
     this.buildTeams();
+    this.createSpaceOfDeahts(this.tilesDB,this.deathBlack);
+    this.createSpaceOfDeahts(this.tilesDW,this.deathWhite);
   }
 
   buildTeams() {
@@ -186,8 +220,10 @@ export class board {
         use.removeVuls(this.tiles);
         use.removePiecesVulnerates(this.tiles);
       }else if(this.pFinal.vulnerate == true){
+        //The piece can eat
         use.removeDots(this.tiles);
         this.move(this.pInicial,this.pFinal);
+        this.killed(this.pFinal);
         use.removeVuls(this.tiles);
         use.removePiecesVulnerates(this.tiles);
       } else {
@@ -208,5 +244,29 @@ export class board {
     this.tiles[pFinal.pos].innerElement = pInicial;
     this.tiles[pFinal.pos].innerElement.pos = pFinal.pos;
     this.tiles[pFinal.pos].tile.appendChild(img);
+  }
+
+  killed(death) {
+    let img = document.createElement("img");
+    img.src = death.image;
+    if(death.team == "black"){
+      for(let it of this.tilesDB){
+          if(it.innerElement.name == "empty"){
+            it.removeInnerElement();
+            it.innerElement = death;
+            it.tile.appendChild(img);
+            break;
+          }
+      }
+    }else if(death.team == "white"){
+      for(let it of this.tilesDW){
+        if(it.innerElement.name == "empty"){
+          it.removeInnerElement();
+          it.innerElement = death;
+          it.tile.appendChild(img);
+          break;
+        }
+      }
+    }
   }
 }

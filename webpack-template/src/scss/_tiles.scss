@@ -1,7 +1,7 @@
 .title{
     display: flex;
     font-family: 'Merienda One', cursive;
-    color:  rgb(157, 169, 197);
+    color:  rgb(21, 43, 93);
     font-size: 45px;
     margin: 10px;
     align-items: center;
@@ -44,6 +44,27 @@
 
   .vul{
     background-color: rgb(41, 231, 41);
+    animation: effectVul;
+    animation-duration: 1s;
+  }
+
+  .death0{
+    background-color: rgb(44, 105, 105);
+  }
+
+  .death1{
+    background-color: rgb(92, 212, 212);
+  }
+
+
+  @keyframes effectVul{
+    from {
+      background-color: rgb(109, 235, 109);
+    }
+    to {
+      background-color: rgb(41, 231, 41);
+    }
+
   }
 
   @keyframes effect{
