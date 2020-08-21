@@ -488,7 +488,7 @@ export function emptyToDotForBishops(pos,wayArray,wayArray2,tiles,recursiveFunct
   tiles[pos].removeInnerElement();
   tiles[pos].innerElement = pieceDot;
   tiles[pos].tile.appendChild(dot);
-  if (pieceName != "pawn") {
+  if (pieceName != "pawn" && pieceName != "king") {
     recursiveFunction(pos, wayArray, wayArray2, tiles, staticPos);
   }
 }
@@ -547,7 +547,7 @@ export function kingValidationAhead(pos, wayUp, tiles, staticPos) {
     count += seePieces(ahead, tiles);
     //If ahead it is free
     if (count == 0) {
-      emptyToDot(ahead, wayUp, tiles, funNull, "king");
+      emptyToDot(ahead, wayUp, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[ahead].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[ahead].tile.classList.add("vul");
@@ -567,7 +567,7 @@ export function kingValidationBack(pos, wayDown, tiles, staticPos) {
     count += seePieces(back, tiles);
     //If back it is free
     if (count == 0) {
-      emptyToDot(back, wayDown, tiles, funNull, "king");
+      emptyToDot(back, wayDown, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[back].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[back].tile.classList.add("vul");
@@ -587,7 +587,7 @@ export function kingValidationRight(pos, wayRight, tiles, staticPos) {
     count += seePieces(right, tiles);
     //If right it is free
     if (count == 0) {
-      emptyToDot(right, wayRight, tiles, funNull, "king");
+      emptyToDot(right, wayRight, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[right].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[right].tile.classList.add("vul");
@@ -607,7 +607,7 @@ export function kingValidationLeft(pos, wayLeft, tiles, staticPos) {
     count += seePieces(left, tiles);
     //If left it is free
     if (count == 0) {
-      emptyToDot(left, wayLeft, tiles, funNull, "king");
+      emptyToDot(left, wayLeft, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[left].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[left].tile.classList.add("vul");
@@ -625,7 +625,7 @@ export function kingValidationUL(pos, wayDown, wayLeft, tiles, staticPos) {
     let corner = pos - 9;
     let count1 = seePieces(corner, tiles);
     if (count1 == 0) {
-      emptyToDotForBishops(corner, wayDown, wayLeft, tiles, funNull, "king");
+      emptyToDotForBishops(corner, wayDown, wayLeft, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[corner].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[corner].tile.classList.add("vul");
@@ -642,7 +642,7 @@ export function kingValidationUR(pos, wayDown, wayRight, tiles, staticPos) {
     let corner = pos - 7;
     let count1 = seePieces(corner, tiles);
     if (count1 == 0) {
-      emptyToDotForBishops(corner, wayDown, wayRight, tiles, funNull, "king");
+      emptyToDotForBishops(corner, wayDown, wayRight, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[corner].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[corner].tile.classList.add("vul");
@@ -659,7 +659,7 @@ export function kingValidationDL(pos, wayUp, wayLeft, tiles, staticPos) {
     let corner = pos + 7;
     let count1 = seePieces(corner, tiles);
     if (count1 == 0) {
-      emptyToDotForBishops(corner, wayUp, wayLeft, tiles, funNull, "king");
+      emptyToDotForBishops(corner, wayUp, wayLeft, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[corner].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[corner].tile.classList.add("vul");
@@ -676,7 +676,7 @@ export function kingValidationDR(pos, wayUp, wayRight, tiles, staticPos) {
     let corner = pos + 9;
     let count1 = seePieces(corner, tiles);
     if (count1 == 0) {
-      emptyToDotForBishops(corner, wayUp, wayRight, tiles, funNull, "king");
+      emptyToDotForBishops(corner, wayUp, wayRight, tiles, funNull, "king",staticPos);
     }else {
       if (tiles[corner].innerElement.team != tiles[staticPos].innerElement.team) {
         tiles[corner].tile.classList.add("vul");
