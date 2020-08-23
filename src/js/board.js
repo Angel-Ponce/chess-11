@@ -170,6 +170,10 @@ export class board {
       this.click = 2;
     }
 
+    if(this.turn != piece.team){
+      this.click = 2;
+    }
+
     console.log(tile.innerElement);
     if(this.turn == 'white' && piece.team == 'white'){
       this.validate(piece);
@@ -178,6 +182,7 @@ export class board {
     if(this.turn == 'black' && piece.team == 'black'){
       this.validate(piece);
     }
+
     //Validate the movement!
 
     if (this.click == 1) {
