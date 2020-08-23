@@ -1,11 +1,13 @@
-# webpack-boilerplate
+# Chess-11
 
-Minimal Webpack boilerplate with TypeScript, Sass, ESLint and Webpack Dev Server
+A simple chess game to internet, include alls movements validations and an interface friendly for everyone.
 
 ## Installation
 
-    git clone git@github.com:carlos-dubon/webpack-boilerplate
-    npm i
+    git clone https://github.com/Angel-Ponce/chess-11.git
+
+    Open a terminal and write:
+    npm install
 
 ## Usage
 
@@ -19,13 +21,5 @@ Minimal Webpack boilerplate with TypeScript, Sass, ESLint and Webpack Dev Server
 
     npm run serve
 
-## Features
-
-- [Webpack](https://webpack.js.org/)
-- [Typescript](https://www.typescriptlang.org/)
-- [Sass](https://sass-lang.com/)
-- [ESLint](https://eslint.org/)
-
-## License
-
-[MIT](https://github.com/carlos-dubon/webpack-boilerplate/blob/master/LICENSE)
+## Visist the game in:
+https://github.com/Angel-Ponce/chess-11
