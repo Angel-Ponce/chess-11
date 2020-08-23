@@ -8,6 +8,7 @@ export class board {
     this.main = document.querySelector(".main");
     this.deathBlack = document.querySelector("#blacks");
     this.deathWhite = document.querySelector("#whites");
+    this.reset = document.querySelector(".butomReset");
     this.tiles = [];
     this.tilesDB = [];
     this.tilesDW = [];
@@ -268,5 +269,18 @@ export class board {
         }
       }
     }
+  }
+
+  resetGame(){
+    this.reset.innerHTML = "Nuevo Juego";
+    this.reset.addEventListener("click", () => {
+    this.main.innerHTML = "";
+    this.deathBlack.innerHTML = "";
+    this.deathWhite.innerHTML = "";
+    this.tiles = [];
+    this.tilesDB = [];
+    this.tilesDW = [];
+    this.createBoard();
+    });
   }
 }
