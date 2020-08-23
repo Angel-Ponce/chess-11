@@ -7,7 +7,7 @@ A simple chess game to internet, include alls movements validations and an inter
     download zip at https://github.com/Angel-Ponce/chess-11.git
 
     Open a terminal and write:
-    npm install (you would be at chess-11 folder)
+    npm install (you should to be at chess-11 folder)
 
 ## Usage
 
