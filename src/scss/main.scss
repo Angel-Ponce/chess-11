@@ -63,7 +63,7 @@ body {
   width: 160px;
   flex-wrap: wrap;
 }
-.git{
+.git {
   text-decoration: none;
   color: black;
   display: flex;
@@ -73,10 +73,9 @@ body {
   flex-direction: column;
   @include center();
 }
-#github{
+#github {
   transition: 0.5s;
-  &:hover{
+  &:hover {
     transform: scale(1.3);
   }
 }
-

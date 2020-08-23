@@ -17,9 +17,9 @@ export class board {
     this.wayLeft = [0, 8, 16, 24, 32, 40, 48, 56];
     this.wayRight = [7, 15, 23, 31, 39, 47, 55, 63];
     this.click = 0;
-    this.myCounter = 0;
     this.pInicial;
     this.pFinal;
+    this.turn = 'white';
   }
 
   createSpaceOfDeahts(tilesName,deathName){
@@ -165,13 +165,61 @@ export class board {
 
   change(tile) {
     let piece = tile.innerElement;
-    //In prove
+    
     if(piece.team == "empty"){
       this.click = 2;
     }
-    //In prove
 
     console.log(tile.innerElement);
+    if(this.turn == 'white' && piece.team == 'white'){
+      this.validate(piece);
+    }
+    
+    if(this.turn == 'black' && piece.team == 'black'){
+      this.validate(piece);
+    }
+    //Validate the movement!
+
+    if (this.click == 1) {
+      this.pInicial = tile.innerElement;
+    } else if (this.click == 2) {
+      this.pFinal = tile.innerElement;
+      //It's a valid movement
+      if (this.pFinal.name == "dot") {
+        use.removeDots(this.tiles);
+        this.move(this.pInicial, this.pFinal);
+        use.removeVuls(this.tiles);
+        use.removePiecesVulnerates(this.tiles);
+        this.alternTurn();
+      }else if(this.pFinal.vulnerate == true){
+        //The piece can eat
+        use.removeDots(this.tiles);
+        this.move(this.pInicial,this.pFinal);
+        this.killed(this.pFinal);
+        use.removeVuls(this.tiles);
+        use.removePiecesVulnerates(this.tiles);
+        this.alternTurn();
+      } else {
+        //It'snt a valid movement
+        use.removeVuls(this.tiles);
+        use.removeDots(this.tiles);
+        use.removePiecesVulnerates(this.tiles);
+      }
+    }
+  }
+
+  move(pInicial, pFinal) {
+    let img = document.createElement("img");
+    img.src = pInicial.image;
+    console.log(`posInicial : ${pInicial.pos} y posFinal: ${pFinal.pos}`);
+    this.tiles[pFinal.pos].removeInnerElement();
+    this.tiles[pInicial.pos].toEmpty();
+    this.tiles[pFinal.pos].innerElement = pInicial;
+    this.tiles[pFinal.pos].innerElement.pos = pFinal.pos;
+    this.tiles[pFinal.pos].tile.appendChild(img);
+  }
+
+  validate(piece){
     if (piece.name == "tower") {
       use.towerValidationAhead(piece.pos, this.wayUp, this.tiles,piece.pos);
       use.towerValidationBack(piece.pos, this.wayDown, this.tiles,piece.pos);
@@ -208,43 +256,14 @@ export class board {
       use.kingValidationDL(piece.pos,this.wayUp,this.wayLeft,this.tiles,piece.pos);
       use.kingValidationDR(piece.pos,this.wayUp,this.wayRight,this.tiles,piece.pos);
     }
-
-    //Validate the movement!
-    if (this.click == 1) {
-      this.pInicial = tile.innerElement;
-    } else if (this.click == 2) {
-      this.pFinal = tile.innerElement;
-      //It's a valid movement
-      if (this.pFinal.name == "dot") {
-        use.removeDots(this.tiles);
-        this.move(this.pInicial, this.pFinal);
-        use.removeVuls(this.tiles);
-        use.removePiecesVulnerates(this.tiles);
-      }else if(this.pFinal.vulnerate == true){
-        //The piece can eat
-        use.removeDots(this.tiles);
-        this.move(this.pInicial,this.pFinal);
-        this.killed(this.pFinal);
-        use.removeVuls(this.tiles);
-        use.removePiecesVulnerates(this.tiles);
-      } else {
-        //It'snt a valid movement
-        use.removeVuls(this.tiles);
-        use.removeDots(this.tiles);
-        use.removePiecesVulnerates(this.tiles);
-      }
-    }
   }
 
-  move(pInicial, pFinal) {
-    let img = document.createElement("img");
-    img.src = pInicial.image;
-    console.log(`posInicial : ${pInicial.pos} y posFinal: ${pFinal.pos}`);
-    this.tiles[pFinal.pos].removeInnerElement();
-    this.tiles[pInicial.pos].toEmpty();
-    this.tiles[pFinal.pos].innerElement = pInicial;
-    this.tiles[pFinal.pos].innerElement.pos = pFinal.pos;
-    this.tiles[pFinal.pos].tile.appendChild(img);
+  alternTurn(){
+    if(this.turn == 'white'){
+      this.turn = 'black';
+    }else{
+      this.turn = 'white';
+    }
   }
 
   killed(death) {
@@ -280,6 +299,7 @@ export class board {
     this.tiles = [];
     this.tilesDB = [];
     this.tilesDW = [];
+    this.turn = 'white';
     this.createBoard();
     });
   }
