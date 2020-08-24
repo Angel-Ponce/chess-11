@@ -1,6 +1,7 @@
 import { piece } from "./piece";
 import { tile } from "./tile";
 import * as use from "./movements";
+import * as topic from "./constants";
 
 export class board {
   constructor(size) {
@@ -9,6 +10,8 @@ export class board {
     this.deathBlack = document.querySelector("#blacks");
     this.deathWhite = document.querySelector("#whites");
     this.reset = document.querySelector(".butomReset");
+    this.turnDer = document.querySelector("#der");
+    this.turnIzq = document.querySelector("#izq");
     this.tiles = [];
     this.tilesDB = [];
     this.tilesDW = [];
@@ -266,8 +269,26 @@ export class board {
   alternTurn(){
     if(this.turn == 'white'){
       this.turn = 'black';
+      //Here makes animation for horses turns
+      this.turnDer.classList.remove("turnW");
+      this.turnDer.src = topic.turnB2;
+      this.turnDer.id = "izq"; 
+      this.turnIzq.classList.remove("turnW");
+      this.turnIzq.src = topic.turnB1;
+      this.turnIzq.id = "der";
+      this.turnDer.classList.add("turnB");
+      this.turnIzq.classList.add("turnB");
     }else{
       this.turn = 'white';
+      //Here makes animation for horses turns
+      this.turnDer.classList.remove("turnB");
+      this.turnDer.src = topic.turnW2;
+      this.turnDer.id = "der";
+      this.turnIzq.classList.remove("turnB");
+      this.turnIzq.src = topic.turnW1;
+      this.turnIzq.id = "izq";
+      this.turnDer.classList.add("turnW");
+      this.turnIzq.classList.add("turnW");
     }
   }
 
@@ -305,6 +326,10 @@ export class board {
     this.tilesDB = [];
     this.tilesDW = [];
     this.turn = 'white';
+    this.turnDer.src = topic.turnW2;
+    this.turnDer.id = "der";
+    this.turnIzq.src = topic.turnW1;
+    this.turnIzq.id = "izq";
     this.createBoard();
     });
   }

@@ -81,6 +81,41 @@
 
   }
 
+  .turnW{
+    width: 44px;
+    height: 47px;
+  }
+  .turnB{
+    width: 45px;
+    height: 45px;
+  }
+
+  #izq{
+    animation-name: effectTurns1;
+    animation-duration: 0.4s;
+  }
+  #der{
+    animation-name: effectTurns2;
+    animation-duration: 0.4s;
+  }
+
+  @keyframes effectTurns1{
+    from{
+      transform: rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes effectTurns2{
+    from{
+      transform: rotate(360deg);
+    }
+    to{
+      transform: rotate(0deg);
+    }
+  }
+
   @keyframes effectVul{
     from {
       background-color: rgb(109, 235, 109);
@@ -116,3 +151,4 @@
     }
 
   }
+  

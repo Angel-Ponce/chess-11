@@ -16,3 +16,9 @@
     export const queenWhite = `./images/pieces/queenWhite.png`;
     export const towerWhite = `./images/pieces/towerWhite.png`;
 
+    //Others
+    export const turnB1 = `./images/turnB1.png`;
+    export const turnB2 = `./images/turnB2.png`;
+    export const turnW1 = `./images/turnW1.png`;
+    export const turnW2 = `./images/turnW2.png`;
+
