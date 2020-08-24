@@ -21,5 +21,7 @@ A simple chess game to internet, include alls movements validations and an inter
 
     npm run serve
 
+
 ## Visist the game in:
-https://github.com/Angel-Ponce/chess-11
+https://angel-ponce.github.io/chess-11/
+
