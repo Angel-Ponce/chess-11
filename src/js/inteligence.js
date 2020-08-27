@@ -8,7 +8,7 @@ export function fakeClick(tiles,wayUp,wayDown,wayLeft,wayRight) {
   let selectionValid;
   let selectionRandom;
   let retorno = [];
-  
+  //The first selection is completly random
   for (let tile of tiles) {
     if (tile.innerElement.team == "black") {
       isValid = validate(tile.innerElement,tiles,wayUp,wayDown,wayLeft,wayRight);
@@ -23,6 +23,20 @@ export function fakeClick(tiles,wayUp,wayDown,wayLeft,wayRight) {
   retorno.push(selectionRandom);
   retorno.push(selectionValid);
 
+  //The second selection is so smart, chose the piece will can eat in the board
+    fr : for (let pos of posibilityClicks) {
+      let smart = validate(tiles[pos].innerElement,tiles,wayUp,wayDown,wayLeft,wayRight);
+      for(let posi of smart){
+        if(tiles[posi].innerElement.team == "white"){
+            retorno = [];
+            selectionRandom = pos;
+            selectionValid = posi;
+            retorno.push(selectionRandom);
+            retorno.push(selectionValid);
+            break fr;
+        }
+      }
+    }
   return retorno;
 }
 //Chose the second position for movement
