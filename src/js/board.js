@@ -2,6 +2,7 @@ import { piece } from "./piece";
 import { tile } from "./tile";
 import * as use from "./movements";
 import * as topic from "./constants";
+import * as inteligence from "./inteligence";
 
 export class board {
   constructor(size) {
@@ -9,7 +10,8 @@ export class board {
     this.main = document.querySelector(".main");
     this.deathBlack = document.querySelector("#blacks");
     this.deathWhite = document.querySelector("#whites");
-    this.reset = document.querySelector(".butomReset");
+    this.singleplayer = document.querySelector(".singleplayer");
+    this.multiplayer = document.querySelector(".multiplayer");
     this.turnDer = document.querySelector("#der");
     this.turnIzq = document.querySelector("#izq");
     this.tiles = [];
@@ -23,6 +25,7 @@ export class board {
     this.pInicial;
     this.pFinal;
     this.turn = 'white';
+    this.modal = 'multi';
   }
 
   createSpaceOfDeahts(tilesName,deathName){
@@ -178,6 +181,7 @@ export class board {
     }
 
     console.log(tile.innerElement);
+    
     if(this.turn == 'white' && piece.team == 'white'){
       this.validate(piece);
     }
@@ -186,36 +190,78 @@ export class board {
       this.validate(piece);
     }
 
-    //Validate the movement!
-
-    if (this.click == 1) {
-      this.pInicial = tile.innerElement;
-    } else if (this.click == 2) {
-      this.pFinal = tile.innerElement;
-      //It's a valid movement
-      if (this.pFinal.name == "dot") {
-        use.removeDots(this.tiles);
-        this.move(this.pInicial, this.pFinal);
-        use.removeVuls(this.tiles);
-        use.removePiecesVulnerates(this.tiles);
-        this.alternTurn();
-      }else if(this.pFinal.vulnerate == true){
-        //The piece can eat
-        use.removeDots(this.tiles);
-        this.move(this.pInicial,this.pFinal);
-        this.killed(this.pFinal);
-        use.removeVuls(this.tiles);
-        use.removePiecesVulnerates(this.tiles);
-        this.alternTurn();
-      } else {
-        //It'snt a valid movement
-        use.removeVuls(this.tiles);
-        use.removeDots(this.tiles);
-        use.removePiecesVulnerates(this.tiles);
+    //Validate the movement when the modal is multi and single!
+    if(this.modal=='multi'){
+      if (this.click == 1) {
+        this.pInicial = tile.innerElement;
+      } else if (this.click == 2) {
+        this.pFinal = tile.innerElement;
+        //It's a valid movement
+        if (this.pFinal.name == "dot") {
+          use.removeDots(this.tiles);
+          this.move(this.pInicial, this.pFinal);
+          use.removeVuls(this.tiles);
+          use.removePiecesVulnerates(this.tiles);
+          this.alternTurn();
+        }else if(this.pFinal.vulnerate == true){
+          //The piece can eat
+          use.removeDots(this.tiles);
+          this.move(this.pInicial,this.pFinal);
+          this.killed(this.pFinal);
+          use.removeVuls(this.tiles);
+          use.removePiecesVulnerates(this.tiles);
+          this.alternTurn();
+        } else {
+          //It'snt a valid movement
+          use.removeVuls(this.tiles);
+          use.removeDots(this.tiles);
+          use.removePiecesVulnerates(this.tiles);
+        }
+      }
+    }else if(this.modal == 'single'){
+      if(this.turn == 'white'){
+        if (this.click == 1) {
+          this.pInicial = tile.innerElement;
+        } else if (this.click == 2) {
+          this.pFinal = tile.innerElement;
+          //It's a valid movement
+          if (this.pFinal.name == "dot") {
+            use.removeDots(this.tiles);
+            this.move(this.pInicial, this.pFinal);
+            use.removeVuls(this.tiles);
+            use.removePiecesVulnerates(this.tiles);
+            this.alternTurn();
+          }else if(this.pFinal.vulnerate == true){
+            //The piece can eat
+            use.removeDots(this.tiles);
+            this.move(this.pInicial,this.pFinal);
+            this.killed(this.pFinal);
+            use.removeVuls(this.tiles);
+            use.removePiecesVulnerates(this.tiles);
+            this.alternTurn();
+          } else {
+            //It'snt a valid movement
+            use.removeVuls(this.tiles);
+            use.removeDots(this.tiles);
+            use.removePiecesVulnerates(this.tiles);
+          }
+          if(this.turn == 'black'){
+            let arr = inteligence.fakeClick(this.tiles,this.wayUp,this.wayDown,this.wayLeft,this.wayRight);
+            this.pInicial = this.tiles[arr[0]].innerElement;
+            this.pFinal = this.tiles[arr[1]].innerElement;
+            this.move(this.pInicial, this.pFinal);
+            if(this.pFinal.team == 'black' || this.pFinal.team == 'white'){
+              if(this.pFinal.team != this.pInicial){
+                this.killed(this.pFinal);
+              }
+            }
+            this.alternTurn();
+          }
+        } 
       }
     }
   }
-
+  
   move(pInicial, pFinal) {
     let img = document.createElement("img");
     img.src = pInicial.image;
@@ -316,9 +362,32 @@ export class board {
     }
   }
 
-  resetGame(){
-    this.reset.innerHTML = "Nuevo Juego";
-    this.reset.addEventListener("click", () => {
+  singleGame(){
+    this.singleplayer.innerHTML = "1 PLAYER";
+    this.singleplayer.addEventListener("click", () => {
+    this.singleplayer.classList.add("active");
+    this.modal = 'single';
+    this.multiplayer.classList.remove("active");
+    this.main.innerHTML = "";
+    this.deathBlack.innerHTML = "";
+    this.deathWhite.innerHTML = "";
+    this.tiles = [];
+    this.tilesDB = [];
+    this.tilesDW = [];
+    this.turn = 'white';
+    this.turnDer.src = topic.turnW2;
+    this.turnDer.id = "der";
+    this.turnIzq.src = topic.turnW1;
+    this.turnIzq.id = "izq";
+    this.createBoard();
+    });
+  }
+  multiGame(){
+    this.multiplayer.innerHTML = "2 PLAYER";
+    this.multiplayer.addEventListener("click", () => {
+    this.multiplayer.classList.add("active");
+    this.modal = 'multi';
+    this.singleplayer.classList.remove("active");
     this.main.innerHTML = "";
     this.deathBlack.innerHTML = "";
     this.deathWhite.innerHTML = "";
