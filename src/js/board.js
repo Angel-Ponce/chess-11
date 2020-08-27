@@ -251,7 +251,7 @@ export class board {
             this.pFinal = this.tiles[arr[1]].innerElement;
             this.move(this.pInicial, this.pFinal);
             if(this.pFinal.team == 'black' || this.pFinal.team == 'white'){
-              if(this.pFinal.team != this.pInicial){
+              if(this.pFinal.team != this.pInicial.team){
                 this.killed(this.pFinal);
               }
             }
