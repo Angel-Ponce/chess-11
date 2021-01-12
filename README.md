@@ -1,5 +1,7 @@
 # Chess-11
 
+![image](https://user-images.githubusercontent.com/60164099/104357987-7bfddf00-54d3-11eb-97bc-e001dd2b6ca3.png)
+
 A simple chess game to internet, include alls movements validations and an interface friendly for everyone.
 
 ## Installation
@@ -21,7 +23,7 @@ A simple chess game to internet, include alls movements validations and an inter
 
     npm run serve
 
-## Visist the game at:
+## View Demo:
 https://angel-ponce.github.io/chess-11/
 
 ## View the documentation at:
